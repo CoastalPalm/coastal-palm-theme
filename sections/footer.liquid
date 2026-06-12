@@ -19,14 +19,25 @@
         {%- endif -%}
       {%- endfor -%}
 
-      <div class="footer-col newsletter">
+      <div class="footer-col footer-signup">
         <h5>{{ section.settings.newsletter_heading }}</h5>
-        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.55;">{{ section.settings.newsletter_body }}</p>
-        {%- form 'customer', class: 'newsletter-form' -%}
+        <p class="footer-signup-text">{{ section.settings.newsletter_body }}</p>
+        {%- form 'customer', class: 'footer-signup-form' -%}
           <input type="hidden" name="contact[tags]" value="newsletter">
-          <input type="email" name="contact[email]" placeholder="your@email.com" required>
-          <button type="submit" class="btn btn-primary btn-sm" style="width: 100%;">Subscribe</button>
+          <input type="email" name="contact[email]" placeholder="Email or phone number" class="footer-signup-input" required>
+          <button type="submit" class="btn btn-primary btn-sm footer-signup-btn">Sign Up</button>
         {%- endform -%}
+        <div class="footer-social">
+          <a href="https://www.instagram.com/coastalpalm.shop" target="_blank" rel="noopener" aria-label="Instagram" class="footer-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          </a>
+          <a href="https://www.tiktok.com/@coastalpalm.shop" target="_blank" rel="noopener" aria-label="TikTok" class="footer-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9 12a4 4 0 1 0 4 4V4a5 5 0 0 0 5 5"/></svg>
+          </a>
+          <a href="https://www.pinterest.com/coastalpalmshop" target="_blank" rel="noopener" aria-label="Pinterest" class="footer-social-link">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2C6.48 2 2 6.48 2 12c0 4.25 2.67 7.9 6.44 9.34-.09-.78-.17-1.98.04-2.83.18-.78 1.17-4.97 1.17-4.97s-.3-.6-.3-1.48c0-1.39.81-2.43 1.81-2.43.85 0 1.27.64 1.27 1.41 0 .86-.55 2.14-.83 3.33-.24 1 .5 1.81 1.48 1.81 1.78 0 3.14-1.87 3.14-4.58 0-2.39-1.72-4.07-4.18-4.07-2.85 0-4.52 2.14-4.52 4.35 0 .86.33 1.78.75 2.28.08.1.09.19.07.29-.08.31-.25 1-.28 1.14-.05.19-.15.23-.35.14-1.31-.61-2.13-2.52-2.13-4.06 0-3.31 2.41-6.35 6.94-6.35 3.64 0 6.48 2.6 6.48 6.07 0 3.62-2.28 6.53-5.45 6.53-1.06 0-2.07-.55-2.41-1.21l-.66 2.5c-.24.91-.88 2.05-1.32 2.75A10 10 0 0 0 22 12c0-5.52-4.48-10-10-10z"/></svg>
+          </a>
+        </div>
       </div>
     </div>
     <div class="footer-bottom">

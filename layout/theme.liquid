@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{{ 'theme.css' | asset_url }}">
-  <link rel="icon" type="image/svg+xml" href="{{ 'cp-logo.svg' | asset_url }}">
+  <link rel="icon" type="image/jpeg" href="{{ 'cp-logo-pink.jpg' | asset_url }}">
   {{ content_for_header }}
 </head>
 <body class="cp-theme">
@@ -25,6 +25,8 @@
   {% section 'footer' %}
 
   {% render 'stylist-drawer' %}
+
+  <button class="back-to-top" id="backToTop" aria-label="Back to top">&#8593;</button>
 
   <script src="{{ 'theme.js' | asset_url }}" defer></script>
   <script src="{{ 'stylist.js' | asset_url }}" defer></script>
