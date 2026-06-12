@@ -1,0 +1,61 @@
+<section class="trust-strip" style="padding: 48px 0;">
+  <div class="container">
+    <div class="trust-grid">
+      {%- for block in section.blocks -%}
+        <div class="trust-item" {{ block.shopify_attributes }}>
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+            {%- case block.settings.icon -%}
+              {%- when 'shipping' -%}
+                <rect width="16" height="13" x="4" y="6" rx="2"></rect><path d="M16 3v6"></path><path d="M8 3v6"></path><path d="m9 16 2 2 4-4"></path>
+              {%- when 'returns' -%}
+                <path d="M21 12a9 9 0 1 1-9-9c2.5 0 4.8 1 6.4 2.6"></path><polyline points="21 3 21 9 15 9"></polyline>
+              {%- when 'tryon' -%}
+                <path d="M9 12 2 9l7-3 7 3-7 3z"></path><path d="m2 9 7 3v9"></path><path d="m16 9 5-2"></path><path d="M16 14V9"></path>
+              {%- when 'curated' -%}
+                <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"></path><circle cx="12" cy="10" r="3"></circle>
+            {%- endcase -%}
+          </svg>
+          <h4>{{ block.settings.heading }}</h4>
+          <p>{{ block.settings.body }}</p>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Trust Strip",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Trust item",
+      "settings": [
+        { "type": "select", "id": "icon", "label": "Icon",
+          "options": [
+            { "value": "shipping", "label": "Shipping" },
+            { "value": "returns",  "label": "Returns" },
+            { "value": "tryon",    "label": "Try-on" },
+            { "value": "curated",  "label": "Curated" }
+          ],
+          "default": "shipping"
+        },
+        { "type": "text",     "id": "heading", "label": "Heading", "default": "Free shipping over $75" },
+        { "type": "textarea", "id": "body",    "label": "Body",    "default": "Ships from our boutique in 1–2 days" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Trust Strip",
+      "blocks": [
+        { "type": "item", "settings": { "icon": "shipping", "heading": "Free shipping over $75", "body": "Ships from our boutique in 1–2 days" } },
+        { "type": "item", "settings": { "icon": "returns",  "heading": "Easy 30-day returns", "body": "Try at home, return what doesn't work" } },
+        { "type": "item", "settings": { "icon": "tryon",    "heading": "AI try-on, every piece", "body": "See it on you before you order" } },
+        { "type": "item", "settings": { "icon": "curated",  "heading": "Small-batch, hand-picked", "body": "Curated by us, never overstocked" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

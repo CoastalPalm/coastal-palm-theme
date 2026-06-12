@@ -1,0 +1,30 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-faq",
+      "blocks": {
+        "heading_1":  { "type": "heading",  "settings": { "text": "Orders & Shipping" } },
+        "q1":         { "type": "question", "settings": { "question": "How long does shipping take?", "answer": "Every order is packed by hand from South Carolina. Processing takes 1-2 business days, and standard shipping is 3-5 business days after that. You'll get a tracking email as soon as it ships.", "open": true } },
+        "q2":         { "type": "question", "settings": { "question": "Do you offer free shipping?", "answer": "Yes! Free standard shipping on all orders $75 and up. No code needed -- it applies automatically at checkout." } },
+        "q3":         { "type": "question", "settings": { "question": "Can I change or cancel my order?", "answer": "We start packing pretty quickly, but if you catch us in time we'll do our best. Email support@coastalpalm.shop as soon as possible and we'll see what we can do." } },
+        "heading_2":  { "type": "heading",  "settings": { "text": "Returns & Exchanges" } },
+        "q4":         { "type": "question", "settings": { "question": "What's your return policy?", "answer": "30 days from delivery. Items must be unworn, unwashed, with tags still attached. Returns are issued as store credit." } },
+        "q5":         { "type": "question", "settings": { "question": "Can I exchange for a different size?", "answer": "Absolutely! Email us at support@coastalpalm.shop with your order number and we'll swap it out (subject to availability)." } },
+        "q6":         { "type": "question", "settings": { "question": "What are Final Sale items?", "answer": "Items marked Final Sale on the product page can't be returned or exchanged. We always mark these clearly before you buy." } },
+        "heading_3":  { "type": "heading",  "settings": { "text": "AI Try-On", "anchor": "tryon-faq" } },
+        "q7":         { "type": "question", "settings": { "question": "What is AI Try-On?", "answer": "It's our virtual fitting room. Upload a photo of yourself and our AI shows you exactly how a piece will look on your body -- before you buy. No more guessing." } },
+        "q8":         { "type": "question", "settings": { "question": "Is my photo saved?", "answer": "No. Your photo is processed in real-time and never stored on our servers. We take your privacy seriously -- your image is used only for the try-on and immediately discarded." } },
+        "q9":         { "type": "question", "settings": { "question": "What kind of photo works best?", "answer": "A full-body or head-to-knees photo works best. Stand facing the camera, use good lighting, and keep the background simple. Phone photos are perfect." } },
+        "q10":        { "type": "question", "settings": { "question": "How accurate is it?", "answer": "It's powered by advanced AI that understands how fabric drapes on different body types. It's not a Photoshop cutout -- it genuinely simulates how the garment fits. Most customers say it's surprisingly close to real life." } },
+        "heading_4":  { "type": "heading",  "settings": { "text": "Sizing" } },
+        "q11":        { "type": "question", "settings": { "question": "How do your clothes fit?", "answer": "Most of our pieces run true to size with a relaxed, beachy fit. If you're between sizes, size down for fitted or stay true for breezier." } },
+        "q12":        { "type": "question", "settings": { "question": "Do you have plus sizes?", "answer": "We currently carry XS through 2X in most styles. We're always working to expand our size range -- stay tuned." } },
+        "heading_5":  { "type": "heading",  "settings": { "text": "Other Questions" } },
+        "q13":        { "type": "question", "settings": { "question": "Where are you based?", "answer": "South Carolina! Every order is packed with love right here at home." } },
+        "q14":        { "type": "question", "settings": { "question": "How can I contact you?", "answer": "Email us anytime at support@coastalpalm.shop -- we get back to you within 24 hours. You can also DM us on Instagram." } }
+      },
+      "block_order": ["heading_1", "q1", "q2", "q3", "heading_2", "q4", "q5", "q6", "heading_3", "q7", "q8", "q9", "q10", "heading_4", "q11", "q12", "heading_5", "q13", "q14"]
+    }
+  },
+  "order": ["main"]
+}

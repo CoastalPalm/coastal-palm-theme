@@ -1,0 +1,67 @@
+<section class="testimonials">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="testimonial-ticker">
+      <div class="testimonial-track">
+        {%- comment -%} Render blocks twice for seamless infinite scroll loop {%- endcomment -%}
+        {%- for pass in (1..2) -%}
+          {%- for block in section.blocks -%}
+            <div class="testimonial-card" {{ block.shopify_attributes }}>
+              <div class="testimonial-stars">
+                {%- for i in (1..5) -%}
+                  {%- if i <= block.settings.stars -%}&#9733;{%- else -%}&#9734;{%- endif -%}
+                {%- endfor -%}
+              </div>
+              <blockquote>{{ block.settings.quote }}</blockquote>
+              <div class="testimonial-author">
+                <div class="testimonial-avatar">{{ block.settings.name | slice: 0 }}</div>
+                <div class="testimonial-author-info">
+                  <strong>{{ block.settings.name }}</strong>
+                  <span>{{ block.settings.detail }}</span>
+                </div>
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endfor -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Testimonials",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "What they're saying" },
+    { "type": "text", "id": "heading",  "label": "Heading",  "default": "Loved by real people" }
+  ],
+  "blocks": [
+    {
+      "type": "review",
+      "name": "Review",
+      "settings": [
+        { "type": "range",    "id": "stars",  "label": "Stars",  "min": 1, "max": 5, "step": 1, "default": 5 },
+        { "type": "textarea", "id": "quote",  "label": "Quote" },
+        { "type": "text",     "id": "name",   "label": "Name",   "default": "Sarah M." },
+        { "type": "text",     "id": "detail", "label": "Detail", "default": "Verified buyer" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Testimonials",
+      "blocks": [
+        { "type": "review", "settings": { "stars": 5, "quote": "I uploaded my photo and the AI try-on showed me exactly how the dress would look. Ordered immediately. It arrived and fit perfectly.", "name": "Sarah M.", "detail": "Verified buyer" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "Finally a boutique that feels curated, not overwhelming. Every piece I've ordered has been gorgeous quality. My new go-to for summer.", "name": "Jess K.", "detail": "3 orders" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "The linen midi dress is my new uniform. I've worn it to brunch, the beach, and a rehearsal dinner. The pockets are deep enough for my phone!", "name": "Maria L.", "detail": "Verified buyer" } },
+        { "type": "review", "settings": { "stars": 4, "quote": "Shipping was quick and the packaging was beautiful. The dress runs slightly long if you're petite, but otherwise stunning. Will buy again.", "name": "Priya S.", "detail": "Verified buyer" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "The Palm stylist recommended the perfect beach outfit for my vacation. I got so many compliments. Love this brand!", "name": "Ava T.", "detail": "2 orders" } },
+        { "type": "review", "settings": { "stars": 5, "quote": "I was skeptical about buying clothes online but the AI try-on feature sold me. It's surprisingly accurate and made me confident to order.", "name": "Nicole R.", "detail": "Verified buyer" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

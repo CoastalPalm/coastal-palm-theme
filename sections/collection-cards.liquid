@@ -1,0 +1,56 @@
+<section>
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+    </div>
+    <div class="collection-grid">
+      {%- for block in section.blocks -%}
+        <a href="{{ block.settings.url }}" class="collection-card" {{ block.shopify_attributes }}>
+          {%- if block.settings.image -%}
+            <img src="{{ block.settings.image | image_url: width: 900 }}" alt="{{ block.settings.title }} collection" loading="lazy" decoding="async">
+          {%- else -%}
+            <img src="{{ block.settings.image_url }}" alt="{{ block.settings.title }} collection" loading="lazy" decoding="async">
+          {%- endif -%}
+          <div class="collection-card-overlay">
+            <h3>{{ block.settings.title }}</h3>
+            <span>{{ block.settings.subtitle }}</span>
+          </div>
+        </a>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Collection Cards",
+  "settings": [
+    { "type": "text", "id": "eyebrow", "label": "Eyebrow", "default": "Shop by mood" },
+    { "type": "text", "id": "heading", "label": "Heading", "default": "Made for the way you wear summer" }
+  ],
+  "blocks": [
+    {
+      "type": "card",
+      "name": "Collection card",
+      "settings": [
+        { "type": "text",         "id": "title",     "label": "Title",    "default": "Beach Day" },
+        { "type": "text",         "id": "subtitle",  "label": "Subtitle", "default": "Coverups · Swim · Sandals →" },
+        { "type": "image_picker", "id": "image",     "label": "Image" },
+        { "type": "text",         "id": "image_url", "label": "Image URL (fallback)", "default": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80&auto=format&fit=crop" },
+        { "type": "url",          "id": "url",       "label": "Link",     "default": "/collections/all" }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Collection Cards",
+      "blocks": [
+        { "type": "card", "settings": { "title": "Beach Day", "subtitle": "Coverups · Swim · Sandals →", "image_url": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80&auto=format&fit=crop" } },
+        { "type": "card", "settings": { "title": "Sunset Dinner", "subtitle": "Linen · Silk · Slip dresses →", "image_url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80&auto=format&fit=crop" } },
+        { "type": "card", "settings": { "title": "Sand & Sea", "subtitle": "Easy days · Long swims · Sandy feet →", "image_url": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=900&q=80&auto=format&fit=crop" } }
+      ]
+    }
+  ]
+}
+{% endschema %}

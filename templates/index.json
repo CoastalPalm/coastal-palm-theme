@@ -3,15 +3,79 @@
     "hero": {
       "type": "hero",
       "settings": {
-        "eyebrow":  "Summer 2026 Collection",
+        "eyebrow": "Summer 2026 Collection",
         "headline": "Sun-soaked style, made for slow afternoons.",
-        "body":     "Linen for the long walk back from the beach. Dresses that move with the breeze. Pieces you'll reach for all season — curated, never overwhelming.",
-        "primary_label":   "Shop Summer 2026",
-        "primary_url":     "/collections/all",
+        "body": "Linen for the long walk back from the beach. Dresses that move with the breeze. Pieces you'll reach for all season — curated, never overwhelming.",
+        "primary_label": "Shop Summer 2026",
+        "primary_url": "/collections/all",
         "secondary_label": "Try Before You Buy",
-        "secondary_url":   "/collections/all"
+        "secondary_url": "/collections/all"
       }
+    },
+    "collection-cards": {
+      "type": "collection-cards",
+      "settings": {
+        "eyebrow": "Shop by mood",
+        "heading": "Made for the way you wear summer"
+      },
+      "blocks": {
+        "card_1": { "type": "card", "settings": { "title": "Beach Day", "subtitle": "Coverups · Swim · Sandals →", "image_url": "https://images.unsplash.com/photo-1519046904884-53103b34b206?w=900&q=80&auto=format&fit=crop", "url": "/collections/all" } },
+        "card_2": { "type": "card", "settings": { "title": "Sunset Dinner", "subtitle": "Linen · Silk · Slip dresses →", "image_url": "https://images.unsplash.com/photo-1496747611176-843222e1e57c?w=900&q=80&auto=format&fit=crop", "url": "/collections/all" } },
+        "card_3": { "type": "card", "settings": { "title": "Sand & Sea", "subtitle": "Easy days · Long swims · Sandy feet →", "image_url": "https://images.unsplash.com/photo-1473496169904-658ba7c44d8a?w=900&q=80&auto=format&fit=crop", "url": "/collections/all" } }
+      },
+      "block_order": ["card_1", "card_2", "card_3"]
+    },
+    "featured-products": {
+      "type": "featured-products",
+      "settings": {
+        "eyebrow": "Just landed",
+        "heading": "New this week",
+        "body": "Restocked staples and fresh-off-the-line pieces. Most ship from our boutique within 24 hours.",
+        "footer_label": "View all new arrivals",
+        "footer_url": "/collections/all"
+      }
+    },
+    "testimonials": {
+      "type": "testimonials",
+      "settings": {
+        "eyebrow": "What they're saying",
+        "heading": "Loved by real people"
+      },
+      "blocks": {
+        "r1": { "type": "review", "settings": { "stars": 5, "quote": "I uploaded my photo and the AI try-on showed me exactly how the dress would look. Ordered immediately. It arrived and fit perfectly.", "name": "Sarah M.", "detail": "Verified buyer" } },
+        "r2": { "type": "review", "settings": { "stars": 5, "quote": "Finally a boutique that feels curated, not overwhelming. Every piece I've ordered has been gorgeous quality. My new go-to for summer.", "name": "Jess K.", "detail": "3 orders" } },
+        "r3": { "type": "review", "settings": { "stars": 5, "quote": "The linen midi dress is my new uniform. I've worn it to brunch, the beach, and a rehearsal dinner. The pockets are deep enough for my phone!", "name": "Maria L.", "detail": "Verified buyer" } },
+        "r4": { "type": "review", "settings": { "stars": 4, "quote": "Shipping was quick and the packaging was beautiful. The dress runs slightly long if you're petite, but otherwise stunning. Will buy again.", "name": "Priya S.", "detail": "Verified buyer" } },
+        "r5": { "type": "review", "settings": { "stars": 5, "quote": "The Palm stylist recommended the perfect beach outfit for my vacation. I got so many compliments. Love this brand!", "name": "Ava T.", "detail": "2 orders" } },
+        "r6": { "type": "review", "settings": { "stars": 5, "quote": "I was skeptical about buying clothes online but the AI try-on feature sold me. It's surprisingly accurate and made me confident to order.", "name": "Nicole R.", "detail": "Verified buyer" } }
+      },
+      "block_order": ["r1", "r2", "r3", "r4", "r5", "r6"]
+    },
+    "email-signup": {
+      "type": "email-signup",
+      "settings": {
+        "eyebrow": "Join the Palm List",
+        "heading": "Be the first to know.",
+        "body": "New arrivals, exclusive drops, and 10% off your first order. No spam, just sun-soaked style delivered to your inbox."
+      },
+      "blocks": {
+        "p1": { "type": "perk", "settings": { "text": "✨ 10% off first order" } },
+        "p2": { "type": "perk", "settings": { "text": "🌴 Early access to drops" } },
+        "p3": { "type": "perk", "settings": { "text": "💌 Curated style tips" } }
+      },
+      "block_order": ["p1", "p2", "p3"]
+    },
+    "trust-strip": {
+      "type": "trust-strip",
+      "settings": {},
+      "blocks": {
+        "t1": { "type": "item", "settings": { "icon": "shipping", "heading": "Free shipping over $75", "body": "Ships from our boutique in 1–2 days" } },
+        "t2": { "type": "item", "settings": { "icon": "returns", "heading": "Easy 30-day returns", "body": "Try at home, return what doesn't work" } },
+        "t3": { "type": "item", "settings": { "icon": "tryon", "heading": "AI try-on, every piece", "body": "See it on you before you order" } },
+        "t4": { "type": "item", "settings": { "icon": "curated", "heading": "Small-batch, hand-picked", "body": "Curated by us, never overstocked" } }
+      },
+      "block_order": ["t1", "t2", "t3", "t4"]
     }
   },
-  "order": ["hero"]
+  "order": ["hero", "collection-cards", "featured-products", "testimonials", "email-signup", "trust-strip"]
 }

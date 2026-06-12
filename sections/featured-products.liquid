@@ -1,0 +1,67 @@
+<section style="padding-top: 24px;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      <h2>{{ section.settings.heading }}</h2>
+      {%- if section.settings.body != blank -%}
+        <p>{{ section.settings.body }}</p>
+      {%- endif -%}
+    </div>
+    <div class="product-grid">
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'product' and block.settings.product != blank -%}
+          {%- assign p = block.settings.product -%}
+          <a href="{{ p.url }}" class="product-card" {{ block.shopify_attributes }}>
+            {%- if block.settings.badge != blank -%}
+              <span class="product-badge badge-{{ block.settings.badge_style }}">{{ block.settings.badge }}</span>
+            {%- endif -%}
+            <div class="product-card-img">
+              <img src="{{ p.featured_image | image_url: width: 600 }}" alt="{{ p.title }}" loading="lazy" decoding="async">
+            </div>
+            <div class="product-card-info">
+              <h3 class="product-card-title">{{ p.title }}</h3>
+              <span class="product-card-price">{{ p.price | money }}</span>
+            </div>
+          </a>
+        {%- endif -%}
+      {%- endfor -%}
+    </div>
+    {%- if section.settings.footer_label != blank -%}
+      <div style="text-align:center; margin-top: 48px;">
+        <a href="{{ section.settings.footer_url }}" class="btn btn-outline">{{ section.settings.footer_label }}</a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Featured Products",
+  "settings": [
+    { "type": "text",     "id": "eyebrow",      "label": "Eyebrow",        "default": "Just landed" },
+    { "type": "text",     "id": "heading",       "label": "Heading",        "default": "New this week" },
+    { "type": "textarea", "id": "body",          "label": "Body",           "default": "Restocked staples and fresh-off-the-line pieces. Most ship from our boutique within 24 hours." },
+    { "type": "text",     "id": "footer_label",  "label": "Footer link label", "default": "View all new arrivals" },
+    { "type": "url",      "id": "footer_url",    "label": "Footer link URL" }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        { "type": "product", "id": "product", "label": "Product" },
+        { "type": "text",    "id": "badge",   "label": "Badge text" },
+        { "type": "select",  "id": "badge_style", "label": "Badge style",
+          "options": [
+            { "value": "new",        "label": "New" },
+            { "value": "bestseller", "label": "Bestseller" },
+            { "value": "low-stock",  "label": "Low stock" }
+          ],
+          "default": "new"
+        }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Featured Products" }]
+}
+{% endschema %}
