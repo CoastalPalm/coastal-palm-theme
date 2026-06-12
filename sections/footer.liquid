@@ -1,0 +1,62 @@
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <h3>{{ shop.name }}</h3>
+        <p>{{ section.settings.tagline }}</p>
+      </div>
+
+      {%- for block in section.blocks -%}
+        {%- if block.type == 'menu' -%}
+          <div class="footer-col" {{ block.shopify_attributes }}>
+            <h5>{{ block.settings.heading }}</h5>
+            <ul>
+              {%- for link in block.settings.menu.links -%}
+                <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+              {%- endfor -%}
+            </ul>
+          </div>
+        {%- endif -%}
+      {%- endfor -%}
+
+      <div class="footer-col newsletter">
+        <h5>{{ section.settings.newsletter_heading }}</h5>
+        <p style="font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 14px; line-height: 1.55;">{{ section.settings.newsletter_body }}</p>
+        {%- form 'customer', class: 'newsletter-form' -%}
+          <input type="hidden" name="contact[tags]" value="newsletter">
+          <input type="email" name="contact[email]" placeholder="your@email.com" required>
+          <button type="submit" class="btn btn-primary btn-sm" style="width: 100%;">Subscribe</button>
+        {%- endform -%}
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© {{ 'now' | date: '%Y' }} {{ shop.name }} · {{ shop.url | replace: 'https://', '' }}</span>
+      <span>Privacy · Terms · Accessibility</span>
+    </div>
+  </div>
+</footer>
+
+{% schema %}
+{
+  "name": "Footer",
+  "settings": [
+    { "type": "textarea", "id": "tagline", "label": "Brand tagline",
+      "default": "A small boutique for the women who live a little softer, dress a little freer, and book the trip every chance they get." },
+    { "type": "text", "id": "newsletter_heading", "label": "Newsletter heading",
+      "default": "Stay in the loop" },
+    { "type": "text", "id": "newsletter_body", "label": "Newsletter body",
+      "default": "10% off your first order + first dibs on new arrivals." }
+  ],
+  "blocks": [
+    {
+      "type": "menu",
+      "name": "Menu column",
+      "settings": [
+        { "type": "text",      "id": "heading", "label": "Heading", "default": "Shop" },
+        { "type": "link_list", "id": "menu",    "label": "Menu",    "default": "footer" }
+      ]
+    }
+  ],
+  "presets": [{ "name": "Footer" }]
+}
+{% endschema %}

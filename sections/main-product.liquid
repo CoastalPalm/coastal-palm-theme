@@ -1,0 +1,164 @@
+{%- comment -%}
+  Minimal product detail page section. Mirrors the EJS prototype's
+  PDP layout (gallery on left, info on right) but pulls everything
+  from Shopify's product object. AI try-on widget shows when
+  settings.tryon_endpoint is configured.
+{%- endcomment -%}
+
+<div class="container">
+  <div style="font-size: 0.78rem; color: var(--ink-soft); padding: 24px 0 0;">
+    <a href="{{ routes.root_url }}" style="color: var(--gold-deep);">Home</a> ·
+    <a href="{{ routes.all_products_collection_url }}" style="color: var(--gold-deep);">Shop</a> ·
+    {{ product.title }}
+  </div>
+
+  <div class="pdp-layout">
+
+    <div class="pdp-gallery">
+      <div class="pdp-thumbs">
+        {%- for img in product.images limit: 4 -%}
+          <div class="pdp-thumb{% if forloop.first %} active{% endif %}">
+            <img src="{{ img | image_url: width: 200 }}" alt="" width="80" height="100" loading="lazy" decoding="async">
+          </div>
+        {%- endfor -%}
+      </div>
+      <div class="pdp-main-img">
+        <img src="{{ product.featured_image | image_url: width: 1200 }}" alt="{{ product.title | escape }}" width="1200" height="1600" decoding="async">
+      </div>
+    </div>
+
+    <div class="pdp-info">
+      <div class="pdp-brand">{{ product.vendor | default: shop.name }}</div>
+      <h1>{{ product.title }}</h1>
+
+      {%- if product.metafields.reviews.rating -%}
+        <div class="pdp-rating">
+          <span class="stars">★ ★ ★ ★ ★</span>
+          <span>{{ product.metafields.reviews.rating }} ({{ product.metafields.reviews.count | default: 0 }} reviews)</span>
+        </div>
+      {%- endif -%}
+
+      {%- assign is_sale = false -%}
+      {%- if product.compare_at_price > product.price -%}{%- assign is_sale = true -%}{%- endif -%}
+      {%- if is_sale -%}
+        {%- assign save_amt = product.compare_at_price | minus: product.price -%}
+        {%- assign save_pct = save_amt | times: 100 | divided_by: product.compare_at_price -%}
+      {%- endif -%}
+      <div class="pdp-price{% if is_sale %} is-sale{% endif %}">
+        <span>{{ product.price | money }}</span>
+        {%- if is_sale -%}
+          <span class="strike">{{ product.compare_at_price | money }}</span>
+          <span class="save-pct">Save {{ save_pct }}%</span>
+        {%- endif -%}
+      </div>
+
+      {%- if product.description != blank -%}
+        <p style="color: var(--ink-soft); margin-bottom: 28px; line-height: 1.7;">{{ product.description }}</p>
+      {%- endif -%}
+
+      {%- form 'product', product -%}
+        {%- unless product.has_only_default_variant -%}
+          {%- for option in product.options_with_values -%}
+            <div class="pdp-section">
+              <div class="pdp-section-label">
+                <span>{{ option.name }}{%- if option.name == 'Color' or option.name == 'Size' %} · {{ option.selected_value }}{% endif -%}</span>
+              </div>
+              <div class="{% if option.name == 'Color' %}pdp-colors{% else %}size-pills{% endif %}">
+                {%- for value in option.values -%}
+                  <button type="button"
+                    {% if value == option.selected_value %}class="active"{% endif %}
+                    data-option-index="{{ forloop.parentloop.index0 }}"
+                    data-option-value="{{ value | escape }}">{{ value }}</button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        {%- endunless -%}
+
+        {%- if settings.tryon_endpoint != blank -%}
+          <div class="tryon-widget">
+            <h4>
+              {% render 'icon', icon: 'camera', size: 22 %}
+              See it on you <span class="ai-tag">AI</span>
+            </h4>
+            <p>Upload one photo and we'll dress you in this piece in seconds. Your photo stays private — we don't save it.</p>
+            <div class="tryon-actions">
+              <button type="button" class="btn btn-primary" id="openTryOnBtn">
+                {% render 'icon', icon: 'upload', size: 16, stroke: 2 %}
+                Upload photo
+              </button>
+              <button type="button" class="btn btn-outline" id="openTryOnBtn2">
+                {% render 'icon', icon: 'camera', size: 16, stroke: 2 %}
+                Use my saved photo
+              </button>
+            </div>
+          </div>
+        {%- endif -%}
+
+        <div class="pdp-actions">
+          <button type="submit" name="add" class="btn btn-primary" {% if product.selected_or_first_available_variant.available == false %}disabled{% endif %}>
+            {% if product.selected_or_first_available_variant.available %}Add to bag — {{ product.selected_or_first_available_variant.price | money }}{% else %}Sold out{% endif %}
+          </button>
+          <button type="button" class="icon-btn" style="border: 1.5px solid var(--line); width: 56px; height: 56px;" aria-label="Save to wishlist">
+            {% render 'icon', icon: 'heart', size: 22 %}
+          </button>
+        </div>
+      {%- endform -%}
+
+      <div class="pdp-accordion">
+        {%- if product.metafields.cp.details -%}
+          <details class="pdp-accordion-item" open>
+            <summary>Details &amp; fabric</summary>
+            <div class="content">{{ product.metafields.cp.details }}</div>
+          </details>
+        {%- endif -%}
+        <details class="pdp-accordion-item">
+          <summary>Sizing &amp; fit</summary>
+          <div class="content">True to size. Between sizes? Size down for a more fitted look.</div>
+        </details>
+        <details class="pdp-accordion-item">
+          <summary>Care</summary>
+          <div class="content">Cold wash, line dry. Steam, don't iron.</div>
+        </details>
+        <details class="pdp-accordion-item">
+          <summary>Shipping &amp; returns</summary>
+          <div class="content"><strong>Ships from our boutique in 1–2 days.</strong><br>Free standard shipping over $75. 30-day easy returns.</div>
+        </details>
+      </div>
+    </div>
+  </div>
+</div>
+
+{%- if settings.tryon_endpoint != blank -%}
+  <script src="{{ 'tryon.js' | asset_url }}" defer></script>
+  <script>
+    window.addEventListener('DOMContentLoaded', () => {
+      const productForTryOn = {
+        id:    {{ product.id | json }},
+        name:  {{ product.title | json }},
+        color: {{ product.selected_or_first_available_variant.option1 | default: '' | json }},
+        // image_url returns //cdn.shopify.com/... (protocol-relative).
+        // Replicate requires full https:// URIs — force the scheme here.
+        image: {{ product.featured_image | image_url: width: 1200 | prepend: 'https:' | replace_first: 'https:https:', 'https:' | json }},
+        description: {{ product.description | strip_html | truncate: 120 | json }},
+        category: 'dresses',
+        endpoint: {{ settings.tryon_endpoint | json }}
+      };
+      ['openTryOnBtn', 'openTryOnBtn2'].forEach(id => {
+        const btn = document.getElementById(id);
+        if (btn) btn.addEventListener('click', () => window.CoastalPalmTryOn.open(productForTryOn));
+      });
+      // Deep-link from a product card: /products/<slug>#tryon auto-opens the modal.
+      if (window.location.hash === '#tryon') {
+        setTimeout(() => window.CoastalPalmTryOn.open(productForTryOn), 200);
+      }
+    });
+  </script>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Main product",
+  "settings": []
+}
+{% endschema %}

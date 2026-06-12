@@ -1,0 +1,74 @@
+{%- comment -%}
+  Palm AI Stylist — site-wide drawer (Liquid mirror of /views/sections/stylist-drawer.ejs)
+  Included from layout/theme.liquid. Endpoint comes from `settings.stylist_endpoint`,
+  with the EJS prototype's /api/stylist/chat as the local fallback.
+{%- endcomment -%}
+<button type="button" class="stylist-launcher" data-open-stylist aria-label="Open Palm — your AI stylist" hidden>
+  <span class="stylist-launcher-leaf" aria-hidden="true">🌴</span>
+  <span class="stylist-launcher-label">Ask Palm</span>
+</button>
+
+<aside class="stylist-drawer"
+       id="stylistDrawer"
+       data-endpoint="{{ settings.stylist_endpoint | default: '/api/stylist/chat' }}"
+       hidden aria-hidden="true" role="dialog" aria-modal="true"
+       aria-labelledby="stylistDrawerTitle">
+  <div class="stylist-drawer-scrim" data-close-stylist></div>
+  <div class="stylist-drawer-panel" role="document">
+
+    <header class="stylist-drawer-header">
+      <div class="stylist-drawer-id">
+        <div class="stylist-drawer-avatar" aria-hidden="true">P</div>
+        <div>
+          <h2 id="stylistDrawerTitle">Palm <span class="ai-tag">AI</span></h2>
+          <p>Your stylist · trained on the Coastal Palm catalog</p>
+        </div>
+      </div>
+      <button type="button" class="stylist-drawer-close" data-close-stylist aria-label="Close Palm">×</button>
+    </header>
+
+    <div class="stylist-drawer-body" id="stylistMessages" aria-live="polite">
+      <div class="stylist-empty" data-stylist-empty>
+        <p class="stylist-empty-greeting">Hi! I'm Palm. Tell me where you're going or what kind of look you want and I'll style you from the boutique.</p>
+        <p class="stylist-empty-sub">A few ideas:</p>
+        <div class="stylist-empty-chips">
+          <button type="button" class="stylist-chip" data-stylist-prompt="Going to a beach wedding in July, want something soft and not too short.">Beach wedding in July</button>
+          <button type="button" class="stylist-chip" data-stylist-prompt="3 days in Tulum — one nice dinner, two pool days. What should I pack?">Tulum, 3 days</button>
+          <button type="button" class="stylist-chip" data-stylist-prompt="I love linen but I run hot. Lightest fabrics you have?">Linen, but lightweight</button>
+          <button type="button" class="stylist-chip" data-stylist-prompt="Cute summer tee with a fun phrase, under $50.">Tee under $50</button>
+        </div>
+      </div>
+    </div>
+
+    <form class="stylist-drawer-form" id="stylistForm" autocomplete="off">
+      <input type="text" name="message" id="stylistInput" class="stylist-drawer-input"
+        placeholder="Where are you going?" aria-label="Message Palm" maxlength="500" required>
+      <button type="submit" class="stylist-drawer-send" aria-label="Send">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </form>
+
+  </div>
+</aside>
+
+{%- comment -%}
+  Slim Shopify product catalog → window.__CP_CATALOG__ so the stylist's
+  inline product cards can fill name/price/image without an extra hit.
+{%- endcomment -%}
+<script>
+  window.__CP_CATALOG__ = {
+    {%- assign first = true -%}
+    {%- for product in collections.all.products limit: 250 -%}
+      {%- unless first %},{% endunless -%}
+      {%- assign first = false -%}
+      {{ product.handle | json }}: {
+        "name": {{ product.title | json }},
+        "price": {{ product.price | divided_by: 100.0 }},
+        "image": {{ product.featured_image | image_url: width: 600 | json }}
+      }
+    {%- endfor -%}
+  };
+</script>

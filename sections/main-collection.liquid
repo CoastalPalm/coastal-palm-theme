@@ -1,0 +1,44 @@
+<section class="shop-header" style="padding-bottom: 32px;">
+  <div class="container">
+    <div class="breadcrumb">
+      <a href="{{ routes.root_url }}">Home</a>  ·  Shop  ·  {{ collection.title }}
+    </div>
+    <h1>{{ collection.title }}</h1>
+    {%- if collection.description != blank -%}
+      <p>{{ collection.description }}</p>
+    {%- else -%}
+      <p>{{ collection.products_count }} items, curated and quietly tested.</p>
+    {%- endif -%}
+  </div>
+</section>
+
+<div class="container">
+  <main>
+    <div class="shop-toolbar">
+      <span class="count"><strong>{{ collection.products_count }}</strong> pieces</span>
+    </div>
+
+    <div class="product-grid">
+      {%- for product in collection.products -%}
+        {% render 'product-card', product: product %}
+      {%- else -%}
+        <p>No products in this collection yet.</p>
+      {%- endfor -%}
+    </div>
+
+    {%- if paginate.pages > 1 -%}
+      <div style="text-align:center; margin-top: 56px;">
+        {%- if paginate.next -%}
+          <a href="{{ paginate.next.url }}" class="btn btn-outline">Load more</a>
+        {%- endif -%}
+      </div>
+    {%- endif -%}
+  </main>
+</div>
+
+{% schema %}
+{
+  "name": "Main collection",
+  "settings": []
+}
+{% endschema %}

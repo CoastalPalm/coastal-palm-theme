@@ -1,0 +1,16 @@
+<section style="padding: 80px 0;">
+  <div class="container" style="max-width: 720px;">
+    <span class="eyebrow">{{ page.template_suffix | default: 'Page' | capitalize }}</span>
+    <h1 style="margin: 12px 0 24px;">{{ page.title }}</h1>
+    <div class="rte" style="color: var(--ink-soft); line-height: 1.75;">
+      {{ page.content }}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Main page",
+  "settings": []
+}
+{% endschema %}

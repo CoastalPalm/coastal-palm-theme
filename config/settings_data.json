@@ -1,0 +1,22 @@
+{
+  "current": {
+    "color_gold":  "#C9A35C",
+    "color_ivory": "#FAF6EE",
+    "color_ink":   "#2A241C",
+    "color_coral": "#E8927C",
+    "color_sky":   "#A8C8DC",
+    "tryon_endpoint":   "https://coastalpalm.vercel.app/api/tryon",
+    "stylist_endpoint": "https://coastalpalm.vercel.app/api/stylist/chat"
+  },
+  "presets": {
+    "Coastal Palm": {
+      "color_gold":  "#C9A35C",
+      "color_ivory": "#FAF6EE",
+      "color_ink":   "#2A241C",
+      "color_coral": "#E8927C",
+      "color_sky":   "#A8C8DC",
+      "tryon_endpoint":   "https://coastalpalm.vercel.app/api/tryon",
+      "stylist_endpoint": "https://coastalpalm.vercel.app/api/stylist/chat"
+    }
+  }
+}

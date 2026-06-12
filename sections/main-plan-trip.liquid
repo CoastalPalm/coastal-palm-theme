@@ -1,0 +1,139 @@
+{%- comment -%}
+  Outfit Generator — full page section (Liquid mirror of /views/pages/plan-trip.ejs)
+  Used by templates/page.plan-trip.json. The form + result + swap modal markup
+  is identical to the EJS prototype; behavior lives in assets/outfit-generator.js.
+{%- endcomment -%}
+<section class="plan-hero">
+  <div class="container">
+    <span class="eyebrow">Trip planner <span class="ai-tag">AI</span></span>
+    <h1>{{ section.settings.heading | default: "Tell us where you're going. We'll pack you a capsule." }}</h1>
+    <p class="plan-hero-sub">{{ section.settings.subheading | default: "A 4–6 piece wardrobe from the boutique — versatile, travel-ready, designed to pair. Add the whole thing to your bag in one click." }}</p>
+  </div>
+</section>
+
+<section class="plan-section" data-endpoint-create="{{ section.settings.create_endpoint | default: '/api/outfit-generator/create' }}" data-endpoint-alt="{{ section.settings.alternatives_endpoint | default: '/api/outfit-generator/alternatives' }}">
+  <div class="container">
+    <div class="plan-layout">
+
+      <form class="plan-form" id="planForm">
+        <div class="plan-field">
+          <label for="planDestination">Where are you going?</label>
+          <input type="text" id="planDestination" name="destination" placeholder="Tulum, Charleston, Amalfi…" required>
+        </div>
+
+        <div class="plan-field plan-field--row">
+          <div>
+            <label for="planStart">Start</label>
+            <input type="date" id="planStart" name="start">
+          </div>
+          <div>
+            <label for="planEnd">End</label>
+            <input type="date" id="planEnd" name="end">
+          </div>
+        </div>
+
+        <div class="plan-field">
+          <label>What occasions?</label>
+          <div class="plan-chips" role="group" aria-label="Trip occasions">
+            {%- assign occasions = "Beach/pool,Casual day,Sunset dinner,Brunch,Boat day,Wedding/event" | split: "," -%}
+            {%- for o in occasions -%}
+              <label class="plan-chip">
+                <input type="checkbox" name="occasions" value="{{ o }}">
+                <span>{{ o }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <div class="plan-field">
+          <label for="planCount">How many outfits? <span class="plan-count-value" id="planCountValue">4</span></label>
+          <input type="range" id="planCount" name="count" min="3" max="8" value="4">
+        </div>
+
+        <div class="plan-field">
+          <label for="planPrefs">Any preferences? <span class="plan-optional">(optional)</span></label>
+          <textarea id="planPrefs" name="prefs" rows="2" placeholder="I love linen, not into bright colors…"></textarea>
+        </div>
+
+        <div class="plan-field">
+          <label>Budget <span class="plan-optional">(optional)</span></label>
+          <div class="plan-chips">
+            {%- assign budgets = "under-200:Under $200,200-400:$200–400,400-600:$400–600,600-1000:$600–1000,1000+:$1000+" | split: "," -%}
+            {%- for b in budgets -%}
+              {%- assign parts = b | split: ":" -%}
+              <label class="plan-chip plan-chip--radio">
+                <input type="radio" name="budget" value="{{ parts[0] }}">
+                <span>{{ parts[1] }}</span>
+              </label>
+            {%- endfor -%}
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary plan-submit" id="planSubmit">
+          <span class="plan-submit-default">Pack my suitcase</span>
+          <span class="plan-submit-loading" hidden>Palm is packing…</span>
+        </button>
+      </form>
+
+      <div class="plan-result" id="planResult" hidden aria-live="polite"></div>
+
+      <div class="plan-loading" id="planLoading" hidden>
+        <div class="plan-loading-spinner"></div>
+        <p class="plan-loading-title">Palm is packing your suitcase…</p>
+        <p class="plan-loading-sub">Coordinating fabrics, colors, and occasions. ~5 seconds.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="plan-swap" id="planSwap" hidden aria-modal="true" role="dialog">
+  <div class="plan-swap-scrim" data-close-swap></div>
+  <div class="plan-swap-panel">
+    <header class="plan-swap-header">
+      <div>
+        <h2>Swap this piece</h2>
+        <p id="planSwapSub">Alternatives Palm picked for this slot.</p>
+      </div>
+      <button type="button" class="plan-swap-close" data-close-swap aria-label="Close">×</button>
+    </header>
+    <div class="plan-swap-grid" id="planSwapGrid"></div>
+  </div>
+</div>
+
+<script src="{{ 'outfit-generator.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Plan-a-trip page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Headline",
+      "default": "Tell us where you're going. We'll pack you a capsule."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Sub-headline",
+      "default": "A 4–6 piece wardrobe from the boutique — versatile, travel-ready, designed to pair. Add the whole thing to your bag in one click."
+    },
+    {
+      "type": "url",
+      "id": "create_endpoint",
+      "label": "Capsule create endpoint",
+      "info": "POST endpoint that returns the JSON capsule (e.g., https://coastalpalm.vercel.app/api/outfit-generator/create)."
+    },
+    {
+      "type": "url",
+      "id": "alternatives_endpoint",
+      "label": "Swap alternatives endpoint",
+      "info": "POST endpoint that returns swap-this-piece alternatives."
+    }
+  ],
+  "presets": [
+    { "name": "Plan a trip" }
+  ]
+}
+{% endschema %}

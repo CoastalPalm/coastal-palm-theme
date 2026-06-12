@@ -1,0 +1,25 @@
+<section class="shop-header" style="padding-bottom: 32px;">
+  <div class="container">
+    <div class="breadcrumb"><a href="{{ routes.root_url }}">Home</a> · Search</div>
+    <h1>{% if search.performed %}{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} for "{{ search.terms }}"{% else %}Search{% endif %}</h1>
+
+    <form action="{{ routes.search_url }}" method="get" class="ai-search" style="margin-top: 28px; max-width: 100%;">
+      <span class="ai-search-icon">{% render 'icon', icon: 'search' %}</span>
+      <input class="ai-search-input" type="search" name="q" value="{{ search.terms | escape }}" placeholder="{{ 'general.search.placeholder' | t }}">
+    </form>
+  </div>
+</section>
+
+{%- if search.performed -%}
+  <div class="container">
+    <div class="product-grid" style="margin-top: 32px;">
+      {%- for item in search.results -%}
+        {%- if item.object_type == 'product' -%}
+          {% render 'product-card', product: item %}
+        {%- endif -%}
+      {%- else -%}
+        <p style="grid-column: 1 / -1; color: var(--ink-soft);">No matches. Try fewer words or browse the shop.</p>
+      {%- endfor -%}
+    </div>
+  </div>
+{%- endif -%}

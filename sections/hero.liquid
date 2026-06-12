@@ -1,0 +1,47 @@
+<section class="hero" style="padding:0;">
+  {%- if section.settings.image -%}
+    <div class="hero-img" style="background-image: url({{ section.settings.image | image_url: width: 1800 }});"></div>
+  {%- else -%}
+    {%- comment -%} Default sunset-beach hero from Unsplash until the merchant uploads their own. {%- endcomment -%}
+    <div class="hero-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1800&q=85&auto=format&fit=crop');"></div>
+  {%- endif -%}
+  <div class="container">
+    <div class="hero-content">
+      {%- if section.settings.eyebrow != blank -%}
+        <span class="eyebrow">{{ section.settings.eyebrow }}</span>
+      {%- endif -%}
+      <h1>{{ section.settings.headline }}</h1>
+      {%- if section.settings.body != blank -%}
+        <p>{{ section.settings.body }}</p>
+      {%- endif -%}
+      <div class="hero-cta">
+        {%- if section.settings.primary_label != blank -%}
+          <a href="{{ section.settings.primary_url }}" class="btn btn-primary">{{ section.settings.primary_label }}</a>
+        {%- endif -%}
+        {%- if section.settings.secondary_label != blank -%}
+          <a href="{{ section.settings.secondary_url }}" class="btn btn-outline">
+            {% render 'icon', icon: 'document', size: 16, stroke: 2 %}
+            {{ section.settings.secondary_label }}
+          </a>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Hero",
+  "settings": [
+    { "type": "image_picker", "id": "image",          "label": "Background image" },
+    { "type": "text",         "id": "eyebrow",        "label": "Eyebrow",        "default": "Summer 2026 Collection" },
+    { "type": "text",         "id": "headline",       "label": "Headline",       "default": "Sun-soaked style, made for slow afternoons." },
+    { "type": "textarea",     "id": "body",           "label": "Body",           "default": "Linen for the long walk back from the beach. Dresses that move with the breeze. Pieces you'll reach for all season — curated, never overwhelming." },
+    { "type": "text",         "id": "primary_label",  "label": "Primary CTA label",   "default": "Shop Summer 2026" },
+    { "type": "url",          "id": "primary_url",    "label": "Primary CTA link" },
+    { "type": "text",         "id": "secondary_label","label": "Secondary CTA label", "default": "Try Before You Buy" },
+    { "type": "url",          "id": "secondary_url",  "label": "Secondary CTA link" }
+  ],
+  "presets": [{ "name": "Hero" }]
+}
+{% endschema %}

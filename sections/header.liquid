@@ -1,0 +1,63 @@
+<header class="site-header">
+  <div class="container">
+    <div class="header-row">
+      <nav>
+        <button class="nav-toggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" id="navToggle">
+          {% render 'icon', icon: 'menu', size: 22 %}
+        </button>
+        <ul class="nav-links">
+          {%- for link in section.settings.menu.links -%}
+            <li>
+              <a href="{{ link.url }}"{% if link.active %} class="active"{% endif %}>{{ link.title }}</a>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </nav>
+
+      <a href="{{ routes.root_url }}" class="brand-logo" aria-label="{{ shop.name }} — home">
+        <img src="{{ 'cp-logo.svg' | asset_url }}" alt="{{ shop.name }}" width="120" height="120">
+      </a>
+
+      <div class="header-actions">
+        <button class="icon-btn" aria-label="Search">{% render 'icon', icon: 'search'  %}</button>
+        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon', icon: 'account' %}</a>
+        <a class="icon-btn" href="#" aria-label="Wishlist">{% render 'icon', icon: 'heart'   %}</a>
+        <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="Cart" id="cartBtn">
+          {% render 'icon', icon: 'cart' %}
+          <span class="badge" id="cartBadge"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>
+
+<div class="mobile-drawer" id="mobileDrawer" role="dialog" aria-modal="true" aria-label="Site navigation">
+  <div class="mobile-drawer-backdrop" data-drawer-close></div>
+  <aside class="mobile-drawer-panel">
+    <button class="mobile-drawer-close" aria-label="Close menu" data-drawer-close>
+      {% render 'icon', icon: 'close', size: 22 %}
+    </button>
+    <a href="{{ routes.root_url }}" class="brand-logo" aria-label="{{ shop.name }} — home">
+      <img src="{{ 'cp-logo.svg' | asset_url }}" alt="{{ shop.name }}" width="120" height="120">
+    </a>
+    <ul class="mobile-drawer-nav">
+      {%- for link in section.settings.menu.links -%}
+        <li><a href="{{ link.url }}">{{ link.title }}</a></li>
+      {%- endfor -%}
+    </ul>
+  </aside>
+</div>
+
+{% schema %}
+{
+  "name": "Header",
+  "settings": [
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    }
+  ]
+}
+{% endschema %}

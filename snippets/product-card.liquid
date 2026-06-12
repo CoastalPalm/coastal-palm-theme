@@ -1,0 +1,55 @@
+{%- comment -%}
+  Product card — mirrors views/partials/product-card.ejs.
+  Required: product (Shopify product object).
+  Optional: badge_text, badge_variant ('' | 'sage' | 'ocean'), cta_primary, cta_secondary.
+{%- endcomment -%}
+
+{%- assign cta_p = cta_primary   | default: 'Try On' -%}
+{%- assign cta_s = cta_secondary | default: 'Quick Add' -%}
+{%- assign is_sale = false -%}
+{%- if product.compare_at_price > product.price -%}{%- assign is_sale = true -%}{%- endif -%}
+{%- if is_sale -%}
+  {%- assign save_amt = product.compare_at_price | minus: product.price -%}
+  {%- assign save_pct = save_amt | times: 100 | divided_by: product.compare_at_price -%}
+{%- endif -%}
+
+<a class="product-card{% if is_sale %} is-sale{% endif %}" href="{{ product.url }}">
+  <div class="product-card-img">
+    {%- if is_sale -%}
+      <span class="product-card-badge sale">Sale · {{ save_pct }}% off</span>
+    {%- elsif badge_text != blank -%}
+      <span class="product-card-badge{% if badge_variant != blank %} {{ badge_variant }}{% endif %}">{{ badge_text }}</span>
+    {%- endif -%}
+    <button type="button" class="product-card-wishlist" aria-label="Save" onclick="event.preventDefault(); event.stopPropagation();">
+      {% render 'icon', icon: 'heart', size: 16, stroke: 2 %}
+    </button>
+    <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" width="600" height="800" loading="lazy" decoding="async">
+    <div class="product-card-actions">
+      <button type="button" class="btn btn-sm" onclick="event.preventDefault(); event.stopPropagation(); window.location.href='{{ product.url }}#tryon'">{{ cta_p }}</button>
+      <button type="button" class="btn btn-sm" data-quick-add="{{ product.selected_or_first_available_variant.id }}" onclick="event.preventDefault(); event.stopPropagation(); window.CoastalPalmQuickAdd && window.CoastalPalmQuickAdd(this);">{{ cta_s }}</button>
+    </div>
+  </div>
+  <h4>{{ product.title }}</h4>
+  <div class="product-card-meta">
+    <div>
+      <span class="product-card-price">
+        {%- if is_sale -%}<span class="strike">{{ product.compare_at_price | money }}</span>{%- endif -%}
+        {{ product.price | money }}
+      </span>
+      {%- if is_sale -%}<span class="product-card-save">Save {{ save_amt | money }}</span>{%- endif -%}
+    </div>
+    {%- assign color_opt = product.options_by_name['Color'] | default: product.options_by_name['Colour'] -%}
+    {%- if color_opt.values.size > 0 -%}
+      <div class="product-card-colors">
+        {%- for v in color_opt.values limit: 4 -%}
+          <span style="background:{{ v | downcase | replace: ' ', '-' | prepend: '#' }};"></span>
+        {%- endfor -%}
+      </div>
+    {%- endif -%}
+  </div>
+  {%- if product.available -%}
+    <div class="fulfillment-tag in-stock">Packed with love · ships in 1–3 days</div>
+  {%- else -%}
+    <div class="fulfillment-tag">Restocking soon</div>
+  {%- endif -%}
+</a>

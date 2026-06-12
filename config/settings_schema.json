@@ -1,0 +1,50 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Coastal Palm",
+    "theme_version": "0.1.0",
+    "theme_author": "Coastal Palm Boutique",
+    "theme_documentation_url": "https://github.com/pattypuzz/coastalpalm",
+    "theme_support_url": "https://github.com/pattypuzz/coastalpalm/issues"
+  },
+  {
+    "name": "Brand",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Palette tokens"
+      },
+      {
+        "type": "paragraph",
+        "content": "These are read by the theme as CSS custom properties. Match the palette defined in CLAUDE.md."
+      },
+      { "type": "color", "id": "color_gold",  "label": "Gold (primary brand)", "default": "#C9A35C" },
+      { "type": "color", "id": "color_ivory", "label": "Ivory (page bg)",      "default": "#FAF6EE" },
+      { "type": "color", "id": "color_ink",   "label": "Ink (text)",            "default": "#2A241C" },
+      { "type": "color", "id": "color_coral", "label": "Coral (warm accent)",  "default": "#E8927C" },
+      { "type": "color", "id": "color_sky",   "label": "Sky (cool accent)",    "default": "#A8C8DC" }
+    ]
+  },
+  {
+    "name": "AI Try-On",
+    "settings": [
+      {
+        "type": "url",
+        "id": "tryon_endpoint",
+        "label": "Try-On service URL",
+        "info": "Full URL to the Node /api/tryon endpoint (e.g., the Railway deployment). Leave blank to disable try-on."
+      }
+    ]
+  },
+  {
+    "name": "AI Stylist",
+    "settings": [
+      {
+        "type": "url",
+        "id": "stylist_endpoint",
+        "label": "Palm Stylist URL",
+        "info": "Full URL to /api/stylist/chat (e.g., https://coastalpalm.vercel.app/api/stylist/chat). Leave blank to disable the drawer."
+      }
+    ]
+  }
+]

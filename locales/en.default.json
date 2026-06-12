@@ -1,0 +1,29 @@
+{
+  "general": {
+    "404": {
+      "title": "Page not found",
+      "subtext": "The page you're looking for has wandered off. Try the homepage or browse the shop.",
+      "link": "Continue shopping"
+    },
+    "search": {
+      "placeholder": "Try \"flowy white sundress for a beach wedding under $120\""
+    }
+  },
+  "products": {
+    "product": {
+      "add_to_cart": "Add to bag",
+      "sold_out": "Sold out",
+      "from_text_html": "From {{ price }}",
+      "on_sale": "Sale",
+      "vendor": "Coastal Palm Original"
+    }
+  },
+  "cart": {
+    "general": {
+      "title": "Your bag",
+      "empty": "Your bag is empty.",
+      "checkout": "Check out",
+      "subtotal": "Subtotal"
+    }
+  }
+}

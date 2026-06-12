@@ -1,0 +1,25 @@
+<section style="padding: 56px 0;">
+  <div class="container">
+    <div class="section-head">
+      <span class="eyebrow">Shop by mood</span>
+      <h2>Collections</h2>
+    </div>
+    <div class="collection-grid">
+      {%- for collection in collections -%}
+        {%- unless collection.handle == 'frontpage' or collection.handle == 'all' -%}
+          <a href="{{ collection.url }}" class="collection-card">
+            {%- if collection.image -%}
+              <img src="{{ collection.image | image_url: width: 900 }}" alt="{{ collection.title | escape }}" width="900" height="1200" loading="lazy" decoding="async">
+            {%- elsif collection.products.first.featured_image -%}
+              <img src="{{ collection.products.first.featured_image | image_url: width: 900 }}" alt="{{ collection.title | escape }}" width="900" height="1200" loading="lazy" decoding="async">
+            {%- endif -%}
+            <div class="collection-card-overlay">
+              <h3>{{ collection.title }}</h3>
+              <span>{{ collection.products_count }} pieces →</span>
+            </div>
+          </a>
+        {%- endunless -%}
+      {%- endfor -%}
+    </div>
+  </div>
+</section>

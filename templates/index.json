@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "hero": {
+      "type": "hero",
+      "settings": {
+        "eyebrow":  "Summer 2026 Collection",
+        "headline": "Sun-soaked style, made for slow afternoons.",
+        "body":     "Linen for the long walk back from the beach. Dresses that move with the breeze. Pieces you'll reach for all season — curated, never overwhelming.",
+        "primary_label":   "Shop Summer 2026",
+        "primary_url":     "/collections/all",
+        "secondary_label": "Try Before You Buy",
+        "secondary_url":   "/collections/all"
+      }
+    }
+  },
+  "order": ["hero"]
+}
