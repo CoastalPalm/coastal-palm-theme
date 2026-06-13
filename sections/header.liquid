@@ -5,13 +5,6 @@
         <button class="nav-toggle" aria-label="Open menu" aria-controls="mobileDrawer" aria-expanded="false" id="navToggle">
           {% render 'icon', icon: 'menu', size: 22 %}
         </button>
-        <ul class="nav-links">
-          {%- for link in section.settings.menu.links -%}
-            <li>
-              <a href="{{ link.url }}"{% if link.active %} class="active"{% endif %}>{{ link.title }}</a>
-            </li>
-          {%- endfor -%}
-        </ul>
       </nav>
 
       <a href="{{ routes.root_url }}" class="brand-logo" aria-label="{{ shop.name }} — home">
@@ -19,9 +12,7 @@
       </a>
 
       <div class="header-actions">
-        <button class="icon-btn" aria-label="Search">{% render 'icon', icon: 'search'  %}</button>
-        <a class="icon-btn" href="{{ routes.account_url }}" aria-label="Account">{% render 'icon', icon: 'account' %}</a>
-        <a class="icon-btn" href="#" aria-label="Wishlist">{% render 'icon', icon: 'heart'   %}</a>
+        <button class="icon-btn" aria-label="Search">{% render 'icon', icon: 'search' %}</button>
         <a class="icon-btn" href="{{ routes.cart_url }}" aria-label="Cart" id="cartBtn">
           {% render 'icon', icon: 'cart' %}
           <span class="badge" id="cartBadge"{% if cart.item_count == 0 %} hidden{% endif %}>{{ cart.item_count }}</span>
@@ -44,6 +35,12 @@
       {%- for link in section.settings.menu.links -%}
         <li><a href="{{ link.url }}">{{ link.title }}</a></li>
       {%- endfor -%}
+      <li>
+        <a href="/pages/favorites" class="mobile-drawer-favorites">
+          {% render 'icon', icon: 'heart', size: 18 %}
+          My Favorites
+        </a>
+      </li>
     </ul>
   </aside>
 </div>

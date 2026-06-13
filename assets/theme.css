@@ -1800,7 +1800,7 @@ section:nth-of-type(odd) {
    MOBILE NAV DRAWER — hamburger → slide-in panel
    ============================================ */
 .nav-toggle {
-  display: none;
+  display: inline-flex;
   width: 40px; height: 40px;
   border-radius: 50%;
   background: transparent;
@@ -1812,13 +1812,19 @@ section:nth-of-type(odd) {
   padding: 0;
 }
 .nav-toggle svg { display: block; }
-/* Mobile search — sits next to hamburger on small screens, hidden on desktop */
-.mobile-search-btn { display: none; }
-@media (max-width: 640px) {
-  .nav-toggle { display: inline-flex; }
-  .mobile-search-btn { display: inline-flex; }
-  .header-row > nav { order: -1; display: flex; align-items: center; gap: 4px; }
-  .header-actions [aria-label="Search"] { display: none; }
+.header-row > nav { order: -1; display: flex; align-items: center; gap: 4px; }
+/* Nav links hidden — all navigation goes through the drawer */
+.nav-links { display: none !important; }
+
+/* Favorites link in drawer */
+.mobile-drawer-favorites {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.mobile-drawer-favorites svg {
+  flex-shrink: 0;
+  color: var(--pink-btn-deep);
 }
 
 .mobile-drawer {
